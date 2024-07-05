@@ -4,7 +4,7 @@ async function handleUpdateDiscussion (req, res)  {
   const { id } = req.params;
   const { text, image, hashtags } = req.body;
   try {
-    const discussion = await Discussion.findByIdAndUpdate(id, 
+    const discussion = await Post.findByIdAndUpdate(id, 
       { text, 
         image, 
         hashtags
@@ -29,7 +29,7 @@ async function handleDeleteDiscussion (req, res)  {
 async function handleGetDiscussionByTag (req, res)  {
   const { tag } = req.query;
   try {
-    const discussions = await Discussion.find({ hashtags: tag });
+    const discussions = await Post.find({ hashtags: tag });
     res.json(discussions);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -39,7 +39,7 @@ async function handleGetDiscussionByTag (req, res)  {
 async function handleGetDiscussionByText (req, res) {
   const { text } = req.query;
   try {
-    const discussions = await Discussion.find({ text: new RegExp(text, 'i') });
+    const discussions = await Post.find({ text: new RegExp(text, 'i') });
     res.json(discussions);
   } catch (error) {
     res.status(400).json({ error: error.message });
